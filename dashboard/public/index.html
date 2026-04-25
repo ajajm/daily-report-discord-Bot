@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReportOS — Team Dashboard</title>
+  <meta name="description" content="Internal startup operating system for daily reports, accountability, and team performance management.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="url(#bg)"/>
+          <path d="M8 10h16M8 16h10M8 22h13" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="24" cy="22" r="3" fill="#23D18B"/>
+          <defs><linearGradient id="bg" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#5865F2"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">ReportOS</div>
+        <div class="brand-sub">Team Intelligence</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-page="dashboard" onclick="navigate('dashboard')">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1v-4zm8-8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V4zm0 8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" data-page="team" onclick="navigate('team')">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/></svg>
+        <span>Team</span>
+      </a>
+      <a class="nav-item" data-page="reports" onclick="navigate('reports')">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+        <span>Reports</span>
+      </a>
+      <a class="nav-item" data-page="leaderboard" onclick="navigate('leaderboard')">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+        <span>Leaderboard</span>
+      </a>
+      <a class="nav-item" data-page="analytics" onclick="navigate('analytics')">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+        <span>Analytics</span>
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-item" data-page="settings" onclick="navigate('settings')">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="guild-selector">
+        <label class="guild-label">Guild ID</label>
+        <input type="text" id="guildIdInput" class="guild-input" placeholder="Enter Guild ID" />
+        <button class="btn-load" onclick="loadData()">Load</button>
+      </div>
+      <div class="api-key-row">
+        <label class="guild-label">API Key</label>
+        <input type="password" id="apiKeyInput" class="guild-input" placeholder="Dashboard secret" />
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    <!-- Header -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <div class="page-title" id="pageTitle">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          <span>Live</span>
+        </div>
+        <div class="topbar-date" id="topbarDate"></div>
+        <button class="btn-refresh" onclick="loadData()" title="Refresh data">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Pages -->
+    <div class="page" id="page-dashboard">
+      <!-- KPI Row -->
+      <div class="kpi-grid" id="kpiGrid">
+        <div class="kpi-card" id="kpi-total">
+          <div class="kpi-icon icon-purple"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/></svg></div>
+          <div class="kpi-content"><div class="kpi-value" id="kv-total">—</div><div class="kpi-label">Team Members</div></div>
+        </div>
+        <div class="kpi-card" id="kpi-submitted">
+          <div class="kpi-icon icon-green"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+          <div class="kpi-content"><div class="kpi-value" id="kv-submitted">—</div><div class="kpi-label">Submitted Today</div></div>
+        </div>
+        <div class="kpi-card" id="kpi-pending">
+          <div class="kpi-icon icon-amber"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg></div>
+          <div class="kpi-content"><div class="kpi-value" id="kv-pending">—</div><div class="kpi-label">Still Pending</div></div>
+        </div>
+        <div class="kpi-card" id="kpi-late">
+          <div class="kpi-icon icon-red"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg></div>
+          <div class="kpi-content"><div class="kpi-value" id="kv-late">—</div><div class="kpi-label">Late Submissions</div></div>
+        </div>
+        <div class="kpi-card" id="kpi-pct">
+          <div class="kpi-icon icon-blue"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z" clip-rule="evenodd"/></svg></div>
+          <div class="kpi-content"><div class="kpi-value" id="kv-pct">—</div><div class="kpi-label">Completion Rate</div></div>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Today's Progress</span>
+          <span id="progressLabel">0 / 0</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-row">
+        <div class="card chart-card">
+          <div class="card-header">
+            <div class="card-title">7-Day Submission Trend</div>
+          </div>
+          <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">🔥 Streak Leaderboard</div></div>
+          <div class="leaderboard-mini" id="streakLb"></div>
+        </div>
+      </div>
+
+      <!-- Pending / Submitted split -->
+      <div class="split-grid">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⏳ Still Pending</div>
+            <div class="card-badge badge-warn" id="pendingCount">0</div>
+          </div>
+          <div class="user-list" id="pendingList"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">✅ Submitted</div>
+            <div class="card-badge badge-success" id="submittedCount">0</div>
+          </div>
+          <div class="user-list" id="submittedList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-team">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">👥 Team Members</div>
+          <input type="text" class="search-input" id="teamSearch" placeholder="Search..." oninput="filterTeam(this.value)">
+        </div>
+        <table class="data-table" id="teamTable">
+          <thead>
+            <tr>
+              <th>Member</th><th>Dept</th><th>Total</th><th>On-Time %</th>
+              <th>Streak</th><th>Avg Quality</th><th>Missed/Mo</th>
+            </tr>
+          </thead>
+          <tbody id="teamTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-reports">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 Reports</div>
+          <div class="card-actions">
+            <input type="date" class="date-input" id="reportDatePicker" onchange="loadReports(this.value)">
+          </div>
+        </div>
+        <div class="reports-grid" id="reportsGrid"></div>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-leaderboard">
+      <div class="card">
+        <div class="card-header"><div class="card-title">🏆 Performance Leaderboard</div></div>
+        <div class="lb-grid" id="lbGrid"></div>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-analytics">
+      <div class="charts-row">
+        <div class="card chart-card">
+          <div class="card-header"><div class="card-title">On-Time vs Late (30d)</div></div>
+          <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
+        </div>
+        <div class="card chart-card">
+          <div class="card-header"><div class="card-title">Daily Submission Rate</div></div>
+          <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-settings">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⚙️ Bot Configuration</div></div>
+        <div class="settings-content" id="settingsContent">
+          <div class="empty-state">Load guild data to view settings</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

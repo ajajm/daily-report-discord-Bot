@@ -1,0 +1,29 @@
+# Render deployment: render.yaml
+services:
+  - type: worker
+    name: discord-report-bot
+    env: node
+    buildCommand: npm install
+    startCommand: node src/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: DISCORD_CLIENT_ID
+        sync: false
+      - key: DISCORD_GUILD_ID
+        sync: false
+      - key: DASHBOARD_SECRET
+        sync: false
+
+  - type: web
+    name: report-dashboard
+    env: node
+    buildCommand: npm install
+    startCommand: node dashboard/server.js
+    envVars:
+      - key: DASHBOARD_PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production

@@ -1,0 +1,17 @@
+# Railway deployment configuration
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "node src/index.js"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[[services]]
+name = "bot"
+
+[[services]]
+name = "dashboard"
+startCommand = "node dashboard/server.js"
